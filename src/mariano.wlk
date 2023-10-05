@@ -1,7 +1,8 @@
 import golosinas.*
 
 object mariano {
-	var golosinas = []
+	const golosinas = []
+	 
 	 
 	method comprar(_golosina) { golosinas.add(_golosina) }
 	
@@ -31,8 +32,6 @@ object mariano {
 		return golosinas.all({ _golosina => _golosina.precio() < 10}) 
 	}
 	
-	
-	
 	method golosinaDeSabor(_sabor) {
 		return golosinas.find({ golosina => golosina.sabor() == _sabor })
 	}
@@ -45,8 +44,6 @@ object mariano {
 		return golosinas.map({ golosina => golosina.sabor() }).asSet()
 	}
 
-
-
 	method golosinaMasCara() {
 		return golosinas.max( { _golosina => _golosina.precio() } )
 	}
@@ -55,13 +52,17 @@ object mariano {
 		return golosinasDeseadas.difference(golosinas)	
 	}
 
-
 	method saboresFaltantes(_saboresDeseados) {
 		return _saboresDeseados.filter({_saborDeseado => ! self.tieneGolosinaDeSabor(_saborDeseado)})	
 	}
 	
 	method tieneGolosinaDeSabor(_sabor) {
 		return golosinas.any({_golosina => _golosina.sabor() == _sabor})
+	}
+	
+	method baniar(unaGolosina){
+		const nuevaGolosina = new GolosinaBaniada(golosinaInterior = unaGolosina)
+		golosinas.add(nuevaGolosina)
 	}
 }
 
